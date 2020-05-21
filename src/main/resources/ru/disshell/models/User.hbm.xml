@@ -4,10 +4,11 @@
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="ru.disshell.models.User" table="[user]">
+    <class name="ru.disshell.models.User" table="`user`">
         <id name="id" type="int" column="idUser">
             <generator class="identity"/>
         </id>
         <property name="login" column="login" type="string"/>
+        <property name="password" column="password" type="string"/>
     </class>
 </hibernate-mapping>

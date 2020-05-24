@@ -10,5 +10,11 @@
         </id>
         <property name="login" column="login" type="string"/>
         <property name="password" column="password" type="string"/>
+        <set name="notes" table="note" cascade="all" lazy="false">
+            <key>
+                <column name="idUser" not-null="true" />
+            </key>
+            <one-to-many class="ru.disshell.models.Note"/>
+        </set>
     </class>
 </hibernate-mapping>

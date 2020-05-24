@@ -5,89 +5,91 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
-import ru.disshell.models.User;
+import ru.disshell.models.Note;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
-public class UserRepository{
-
+public class NoteRepository {
     private final SessionFactory factory;
-    public UserRepository(){
+
+    public NoteRepository(){
         factory = new Configuration().configure().buildSessionFactory();
     }
 
-    public Collection<User> Users() {
+
+    public Collection<Note> Notes() {
         final Session session = factory.openSession();
         Transaction transaction = session.beginTransaction();
         try {
-            return session.createQuery("from User ").list();
+            return session.createQuery("from Note ").list();
         } finally {
             transaction.commit();
             session.close();
         }
     }
 
-    public int add(User user) {
+
+    public int add(Note note) {
         final Session session = factory.openSession();
         Transaction transaction = session.beginTransaction();
         try{
-            session.save(user);
-            return user.getId();
+            session.save(note);
+            return note.getId();
         }finally {
             transaction.commit();
             session.close();
         }
     }
 
-    public void edit(User user) {
+
+    public void edit(Note Note) {
+        final Session session = factory.openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.update(Note);
+        } finally {
+            transaction.commit();
+            session.close();
+        }
 
     }
+
 
     public void delete(int id) {
         final Session session = factory.openSession();
         Transaction transaction = session.beginTransaction();
         try {
-            session.delete(new User(id, null, null));
+            Note note = new Note();
+            note.setId(id);
+            session.delete(note);
         } finally {
             transaction.commit();
         }
 
     }
 
-    public User get(int id) {
+
+    public Note get(int id) {
         final Session session = factory.openSession();
         Transaction tx = session.beginTransaction();
         try{
-            User user = session.get(User.class, id);
-            return user;
+            Note note = session.get(Note.class, id);
+            return note;
         }finally {
             tx.commit();
             session.close();
         }
     }
 
-    public User findByLogin(String Login) {
-        Session session = factory.openSession();
-        Transaction transaction = session.beginTransaction();
-        try {
-            final Query query = session.createQuery("from User as user where user.login=:login").setParameter("login", Login);
-            return (User) query.iterate().next();
-        } finally {
-            transaction.commit();
-            session.close();
-        }
-    }
 
-    public User findAuth(String login, String password) {
+    public List<Note> findByUser(int id) {
         Session session = factory.openSession();
         Transaction transaction = session.beginTransaction();
         try {
-            final Query query = session.createQuery("from User as user where user.login =:login and user.password=:password")
-                    .setParameter("login", login)
-                    .setParameter("password", password);
-            List<User> users = query.list();
-            return users.isEmpty() ? null : users.iterator().next();
+            final Query query = session.createQuery("from Note as note where note.id=:id").setParameter("id",id);
+            return query.list();
         } finally {
             transaction.commit();
             session.close();

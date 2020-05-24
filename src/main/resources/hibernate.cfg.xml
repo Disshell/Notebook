@@ -10,5 +10,6 @@
         <property name="hibernate.connection.username">Disshell</property>
         <property name="hibernate.connection.password">123</property>
         <mapping resource="ru/disshell/models/User.hbm.xml"/>
+        <mapping resource="ru/disshell/models/Note.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>

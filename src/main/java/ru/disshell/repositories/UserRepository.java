@@ -1,4 +1,4 @@
-package ru.disshell.models.repositories;
+package ru.disshell.repositories;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -60,6 +60,7 @@ public class UserRepository{
         Transaction tx = session.beginTransaction();
         try{
             User user = session.get(User.class, id);
+            user.getNotes();
             return user;
         }finally {
             tx.commit();
@@ -72,7 +73,9 @@ public class UserRepository{
         Transaction transaction = session.beginTransaction();
         try {
             final Query query = session.createQuery("from User as user where user.login=:login").setParameter("login", Login);
-            return (User) query.iterate().next();
+            User user = (User) query.iterate().next();
+            user.getNotes();
+            return user;
         } finally {
             transaction.commit();
             session.close();

@@ -1,4 +1,4 @@
-package ru.disshell.models.repositories;
+package ru.disshell.repositories;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -9,7 +9,6 @@ import ru.disshell.models.Note;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 public class NoteRepository {
     private final SessionFactory factory;

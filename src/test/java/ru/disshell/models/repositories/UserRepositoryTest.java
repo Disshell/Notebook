@@ -1,8 +1,8 @@
-package ru.disshell.models.ropositories;
+package ru.disshell.models.repositories;
 
 import org.junit.Test;
 import ru.disshell.models.User;
-import ru.disshell.models.repositories.UserRepository;
+import ru.disshell.repositories.UserRepository;
 
 import static org.junit.Assert.*;
 

@@ -1,10 +1,10 @@
-package ru.disshell.models.ropositories;
+package ru.disshell.models.repositories;
 
 import org.junit.Test;
 import ru.disshell.models.Note;
 import ru.disshell.models.User;
-import ru.disshell.models.repositories.NoteRepository;
-import ru.disshell.models.repositories.UserRepository;
+import ru.disshell.repositories.NoteRepository;
+import ru.disshell.repositories.UserRepository;
 
 import java.util.Date;
 

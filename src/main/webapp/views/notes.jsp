@@ -24,7 +24,7 @@
                 </div>
                 <div class="form-group">
                     <label for="text">Текст</label>
-                    <textarea class="form-control" id="text" rows="3"></textarea>
+                    <textarea class="form-control" name="text" id="text" rows="3"></textarea>
                 </div>
                 <button type="submit" class="btn btn-success">Добавить</button>
             </form>
@@ -32,13 +32,18 @@
         <div class="col-md">
             <c:if test="${requestScope.notes.size() != 0}">
                 <c:forEach var="note" items="${requestScope.notes}" varStatus="status">
-                    <div class="card mt-2">
-                        <h5 class="card-header"> Задача <c:out value="${status.index+1}"/> </h5>
+                    <div class="card mt-2 <c:if test="${note.isChecked}"> border-success</c:if>">
+                        <h5 class="card-header <c:if test="${note.isChecked}"> text-white bg-success</c:if>" > Задача <c:out value="${status.index+1}"/> </h5>
                         <div class="card-body">
                             <h5 class="card-title"><c:out value="${note.text}"/></h5>
                             <p class="card-text"><c:out value="${note.date}"/></p>
-                            <a href="#" class="btn btn-primary">Выполнить</a>
-                            <a href="#" class="btn btn-danger">Удалить</a>
+                            <c:if test="${!note.isChecked}">
+                                <a href="?chId=${note.id}" class="btn btn-primary">Выполнить</a>
+                            </c:if>
+                            <c:if test="${note.isChecked}">
+                                <a href="?chId=${note.id} " class="btn btn-success" >Отменить</a>
+                            </c:if>
+                            <a href="?delId=${note.id}" class="btn btn-outline-danger">Удалить</a>
                         </div>
                     </div>
                 </c:forEach>
